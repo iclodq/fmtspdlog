@@ -19,8 +19,9 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 
-# find_package(fmt REQUIRED PATHS ./deps/ NO_DEFAULT_PATH)
-# find_package(spdlog REQUIRED PATHS ./deps/ NO_DEFAULT_PATH)
+find_package(fmt REQUIRED PATHS ./deps/ NO_DEFAULT_PATH)
+find_package(spdlog REQUIRED PATHS ./deps/ NO_DEFAULT_PATH)
+find_package(Threads REQUIRED)
 
 if ( fmt_FOUND)
     message( "fmt_FOUND")
@@ -44,10 +45,18 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 message("fmg include: ${fmt_INCLUDE_DIRS}  ${fmt_LIBRARIES} ")
 MESSAGE("FMG INCLUDE: ${FMT_INCLUDE_DIRS}  ${FMT_LIBRARIES} ")
 add_executable(${PROJECT_NAME} hello.cpp Log.cpp Log.h)
-target_include_directories(${PROJECT_NAME} PUBLIC ./deps/include)
+
+##------------------------------
+# 如果不使用find_package，则可以采用下面的方式
+
+# target_include_directories(${PROJECT_NAME} PUBLIC ./deps/include)
 # target_link_libraries(${PROJECT_NAME} ${fmt_LIBRARIES} ${spdlog_LIBRARIES})
-target_link_directories(${PROJECT_NAME} PUBLIC ./deps/lib)
-target_link_libraries(${PROJECT_NAME} optimized spdlog optimized  fmt)
-target_link_libraries(${PROJECT_NAME} debug spdlogd debug fmtd)
+# target_link_directories(${PROJECT_NAME} PUBLIC ./deps/lib)
+# target_link_libraries(${PROJECT_NAME} optimized spdlog optimized  fmt optimized pthread)
+# target_link_libraries(${PROJECT_NAME} debug spdlogd debug fmtd)
+##--------------------------------
+
+target_link_libraries(${PROJECT_NAME} spdlog::spdlog fmt::fmt Threads::Threads)
+
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC SPDLOG_FMT_EXTERNAL)

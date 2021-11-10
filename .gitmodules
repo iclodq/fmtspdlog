@@ -1,6 +1,8 @@
 [submodule "deps/src/fmt"]
 	path = deps/src/fmt
 	url = https://github.com/fmtlib/fmt.git
+	ignore = all
 [submodule "deps/src/spdlog"]
 	path = deps/src/spdlog
 	url = https://github.com/gabime/spdlog.git
+	ignore = all

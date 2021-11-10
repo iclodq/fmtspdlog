@@ -1,5 +1,10 @@
+!.gitignore
 .vscode/settings.json
 build-vseditor
 build
-deps/src/*
-deps/*
+
+build-*/
+
+deps/include
+deps/lib
+deps/src
