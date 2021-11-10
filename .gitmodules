@@ -1,0 +1,6 @@
+[submodule "deps/src/fmt"]
+	path = deps/src/fmt
+	url = https://github.com/fmtlib/fmt.git
+[submodule "deps/src/spdlog"]
+	path = deps/src/spdlog
+	url = https://github.com/gabime/spdlog.git
